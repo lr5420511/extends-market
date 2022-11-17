@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf8">
+    <title>应用增量修改拓展市场</title>
+    <link rel="stylesheet" type="text/css" href="./index.css">
+</head>
+
+<body>
+    <div class="row">
+        <div class="row-head">插件TextPencil</div>
+        <div class="row-content">
+            <div class="row-text-pencil">
+            TextPencil === text_pencil
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row-head">插件ToWhere</div>
+        <div class="row-content">
+            
+        </div>
+    </div>
+    <!--Add new extend row to here!-->
+    <!--下面是应用拓展区域，注册不同的拓展，测试想要的增量修改效果，把生成的js文件引入其他应用中使用-->
+    <script type="text/javascript" src="./dist/text-pencil.js"></script>
+    <script type="text/javascript" src="./dist/to-where.js"></script>
+    <!--Add more extends to here!-->
+    <script type="text/javascript" src="./dist/extends-market.js"></script>
+    <script type="text/javascript">
+    const market = new ExtendsMarket();
+
+    market.install(TextPencil, true, {
+        initializes: ['修改插件TextPencil区域中的text_pencil，使得等式成立'],
+        requirements: [
+            document.getElementsByClassName('row-text-pencil')[0],
+            {
+                prop: 'innerHTML',
+                regular: /([a-z])([a-z]*)_([a-z])([a-z]*)/,
+                action: (_, fir, sec, thir, four) => `${fir.toUpperCase()}${sec}${thir.toUpperCase()}${four}`
+            }
+        ]
+    }).display();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+    "presets": [
+        "env"
+    ],
+    "plugins": [
+        "babel-plugin-transform-runtime",
+        "@babel/plugin-transform-async-to-generator",
+        [
+            "component",
+            {
+                "libraryName": "element-ui",
+                "styleLibraryName": "theme-chalk"
+            }
+        ]
+    ]
+}

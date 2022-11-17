@@ -1,0 +1,37 @@
+body {
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+    background-color: #c0c0c0;
+    overflow: hidden;
+    font-family: consolas;
+    font-size: 17px;
+}
+
+.row {
+    float: left;
+    width: 96%;
+    margin: 20px 2% 0 2%;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 2px 2px #999;
+}
+
+.row-head {
+    padding: 10px 0;
+    border-bottom: dashed 1px #c0c0c0;
+    text-indent: 10px;
+}
+
+.row-content {
+    float: left;
+    width: 100%;
+    overflow: hidden;
+}
+
+.row-text-pencil {
+    margin: 20px auto;
+    padding: 10px 0;
+    text-align: center;
+}
