@@ -1,4 +1,4 @@
 import 'babel-polyfill';
-import Market from './core';
+import Market from './market';
 
 export default (window.ExtendsMarket = Market);

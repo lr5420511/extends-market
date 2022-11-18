@@ -12,16 +12,12 @@
     <div class="row">
         <div class="row-head">插件TextPencil</div>
         <div class="row-content">
-            <div class="row-text-pencil">
-            TextPencil === text_pencil
-            </div>
+            <div class="row-text-pencil">TextPencil === text_pencil</div>
         </div>
     </div>
     <div class="row">
         <div class="row-head">插件ToWhere</div>
-        <div class="row-content">
-            
-        </div>
+        <div class="row-content"></div>
     </div>
     <!--Add new extend row to here!-->
     <!--下面是应用拓展区域，注册不同的拓展，测试想要的增量修改效果，把生成的js文件引入其他应用中使用-->
@@ -33,13 +29,34 @@
     const market = new ExtendsMarket();
 
     market.install(TextPencil, true, {
-        initializes: ['修改插件TextPencil区域中的text_pencil，使得等式成立'],
+        initializes: ['修改插件TextPencil区域中的text_pencil，并使得表达式成立'],
         requirements: [
-            document.getElementsByClassName('row-text-pencil')[0],
+            document.body,
             {
-                prop: 'innerHTML',
+                path: 'children[0].children[1].children[0].innerHTML',
                 regular: /([a-z])([a-z]*)_([a-z])([a-z]*)/,
-                action: (_, fir, sec, thir, four) => `${fir.toUpperCase()}${sec}${thir.toUpperCase()}${four}`
+                action: (_, fir, sec, third, four) => `${fir.toUpperCase()}${sec}${third.toUpperCase()}${four}`
+            }
+        ]
+    }).install(TextPencil, true, {
+        initializes: ['修改TextPencil区域中的===为='],
+        requirements: [
+            document.getElementsByClassName('row')[0],
+            {
+                path: 'children[1].children[0].textContent',
+                regular: /(=)==/,
+                action: '$1'
+            }
+        ]
+    }).install(ToWhere, true, {
+        initializes: ['添加一个静态路由控件到插件ToWhere区域中'],
+        requirements: [
+            document.getElementsByClassName('row')[1].children[1],
+            {
+                index: 0,
+                style: 'width:300px;height:50px;margin:20px auto;border:dashed 1px #999;text-align:center',
+                path: 'https://www.baidu.com',
+                text: 'To Baidu!'
             }
         ]
     }).display();

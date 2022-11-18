@@ -1,0 +1,1 @@
+export const PLUGIN_USAGE = '修改指定元素属性的文本';

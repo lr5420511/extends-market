@@ -1,22 +1,29 @@
+import { PLUGIN_USAGE } from './config';
+
 const TextPencil = function(task) {
-    Object.assign(this, {
-        task,
-        usage: '修改指定元素属性的文本'
+    if(!PLUGIN_USAGE) throw new Error('Plugin usage can\'t be empty.');
+    Object.assign(this, { 
+        name: 'TextPencil',
+        usage: PLUGIN_USAGE,
+        task
     });
 };
-
-TextPencil.extname = 'TextPencil';
 
 TextPencil.prototype = {
     constructor: TextPencil,
     magic: function(el, options) {
-        const { prop, regular, action } = Object.assign({
-            prop: 'innerText',
+        const { path, regular, action } = Object.assign({
+            path: 'innerText',
             regular: /^/,
             action: cur => cur
-        }, options);
-        const text = el[prop];
-        el[prop] = text.replace(regular, action);
+        }, options),
+        series = (path.match(/[^\.\[\]]+/g) || []).reduce((res, prop) => {
+            const last = res[res.length - 1];
+            return res.push([last[0][prop], prop]) && res;
+        }, [[el]]);
+        if(series.length < 2) throw new Error('path is invalid.');
+        const [value, prop] = series.pop();
+        series[series.length - 1][0][prop] = value.replace(regular, action);
     }
 };
 
